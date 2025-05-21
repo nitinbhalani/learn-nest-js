@@ -3,12 +3,13 @@ import { Repository } from 'typeorm';
 import { User } from './user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
-
+import { ConfigService } from '@nestjs/config';
 @Injectable()
 export class UserService {
   constructor(
     @InjectRepository(User)
     private UserRepository: Repository<User>,
+    private readonly configService: ConfigService,
   ) {}
   public async getAllUsers() {
     return await this.UserRepository.find({
