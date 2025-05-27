@@ -6,18 +6,21 @@ import { UserService } from 'src/user/user.service';
 import { TweetDto } from './dto/tweet.dto';
 import { HashtagService } from 'src/hashtag/hashtag.service';
 import { UpdateTweetDto } from './dto/updateTweetDto';
+import { GetTweetQueryDto } from './dto/get-tweet-query.dto';
+import { PaginationProvider } from 'src/comman/pagination/pagination.provider';
 
 @Injectable()
 export class TweetService {
   constructor(
     private readonly userService: UserService,
     private readonly hashTagService: HashtagService,
+    private readonly paginationService: PaginationProvider,
 
     @InjectRepository(Tweet)
     private readonly tweetRepository: Repository<Tweet>,
   ) {}
   public async getAllTweets() {
-    return await this.tweetRepository.find();
+    return await this.tweetRepository.find({});
   }
 
   public async CreateTweet(createTweet: TweetDto) {
@@ -39,11 +42,12 @@ export class TweetService {
     return await this.tweetRepository.save(tweet);
   }
 
-  public async getTweets(userId: number) {
-    return await this.tweetRepository.find({
-      where: { user: { id: userId } },
-      relations: ['user'],
-    });
+  public async getTweets(userId: number, paginationDto: GetTweetQueryDto) {
+    return await this.paginationService.PaginateQuery(
+      paginationDto,
+      this.tweetRepository,
+      { user: { id: userId } },
+    );
   }
 
   public async UpdateTweet(updateDto: UpdateTweetDto) {
