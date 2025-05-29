@@ -29,12 +29,10 @@ export class PaginationProvider {
     const totalCount = await repository.count();
     const totalPages = Math.ceil(totalCount / (paginationDto.limit || 10));
     const currentPage = paginationDto.page;
-    const nextPage =
-      paginationDto.page === totalPages ? currentPage : currentPage + 1;
+    const nextPage = currentPage === totalPages ? currentPage : currentPage + 1;
     const previousPage = currentPage === 1 ? currentPage : currentPage - 1;
     const baseUrl = this.request.protocol + '://' + this.request.host + '/';
     const newUrl = new URL(this.request.url, baseUrl);
-    console.log(newUrl);
     const response: Paginated<D> = {
       data: result,
       meta: {

@@ -9,6 +9,7 @@ import { TweetModule } from './tweet/tweet.module';
 import { HashtagModule } from './hashtag/hashtag.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { PaginationModule } from './comman/pagination/pagination.module';
+import { AuthModule } from './auth/auth.module';
 @Module({
   imports: [
     UserModule,
@@ -33,6 +34,7 @@ import { PaginationModule } from './comman/pagination/pagination.module';
     TweetModule,
     HashtagModule,
     PaginationModule,
+    AuthModule,
   ],
 
   controllers: [AppController],

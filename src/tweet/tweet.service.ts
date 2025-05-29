@@ -72,4 +72,8 @@ export class TweetService {
     await this.tweetRepository.delete({ id });
     return { message: 'Tweet deleted successfully', id };
   }
+
+  static DeleteData() {
+    console.log('hi..');
+  }
 }

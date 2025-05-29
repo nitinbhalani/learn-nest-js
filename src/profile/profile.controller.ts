@@ -11,7 +11,7 @@ export class ProfileController {
   }
 
   @Delete(':id')
-  public deleteUser(@Param('id', ParseIntPipe) ParseIntPipe, id: number) {
+  public deleteUser(@Param('id', ParseIntPipe) id: number) {
     return this.profileService.deleteUser(id);
   }
 }
