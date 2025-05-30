@@ -6,13 +6,16 @@ import {
   Param,
   ParseIntPipe,
   Post,
+  UseGuards,
 } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UserService } from './user.service';
+import { AuthorizedGuard } from 'src/auth/guard/authorize.guard';
 
 @Controller('user')
 export class UserController {
   constructor(private userService: UserService) {}
+  @UseGuards(AuthorizedGuard)
   @Get()
   getUser() {
     return this.userService.getAllUsers();
